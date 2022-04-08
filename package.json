@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon .",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "migrar": "node -e \"require('./db').migrate()\""
   },
   "keywords": [],
   "author": "",
