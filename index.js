@@ -12,7 +12,6 @@ app.use(express.static(__dirname + "/public"))
 app.use(parsearToken)
 app.use(limpiar)
 
-
 const hbs = create({
     extname: ".hbs",
 });
