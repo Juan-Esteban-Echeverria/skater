@@ -1,0 +1,85 @@
+<h1>Skate Park</h1>
+
+    <div class="py-4">
+      <h2>Registro</h2>
+      <hr class="w-50" />
+
+      <form id="formularioRegister">
+        <div class="form-group row w-50 m-auto">
+          <div class="form-group col-12 col-sm-6">
+            <label>Email</label>
+            <input name="email" type="email" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label>Nombre</label>
+            <input name="nombre" type="text" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label>Password</label>
+            <input name="password" type="password" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label>Repita la password</label>
+            <input type="password" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label>Años de experiencia</label>
+            <input name="anos_experiencia" type="number" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label>Especialidad</label>
+            <input name="especialidad" type="text" class="form-control m-auto" />
+          </div>
+          <div class="form-group col-12 col-sm-12">
+            <label>Foto de perfil</label>
+            <input name="foto" type="file" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-info mb-3">Registrarme</button>
+        <p><a href="/login"> Iniciar sesión</a></p>
+      </form>
+    </div>
+
+<!--
+<h1>register</h1>
+
+<form action="" id="formularioRegister">
+    <input type="text" name="nombre" placeholder="nombre">
+    <input type="email" placeholder="Ingrese email" name="email">
+    <input type="password" placeholder="Ingrese contraseña" name="password">
+    <input type="file" name="foto">
+    <button type="submit">Acceder</button>
+</form>
+-->
+<script>
+
+    const formulario = document.getElementById('formularioRegister')
+
+    formulario.addEventListener('submit', async(e) => {
+        e.preventDefault()
+
+        const formData = new FormData(formulario)
+
+    // validar
+    // const [email, password] = [...datos.values()]
+
+        try {
+
+            const res = await fetch('/api/v1/users', {
+                method: 'post',
+                body: formData
+            })
+
+            const data = await res.json()
+            if(!data.ok){
+                return alert(data.msg)
+            }
+
+            localStorage.setItem('token', data.token)
+            window.location.href = "/"
+
+        }catch(error){
+            console.log(error)
+        }
+    })
+</script>

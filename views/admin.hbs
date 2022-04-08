@@ -1,0 +1,74 @@
+<h1>Skate Park</h1>
+
+    <div class="py-4">
+      <h2>Administración</h2>
+      <hr class="w-50" />
+
+      <table class="table w-50 m-auto">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Años de experiencia</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tBody">
+
+        </tbody>
+      </table>
+    </div>
+    
+
+
+
+        <script>
+    const tBody = document.getElementById("tBody")
+    const pintarDatos = (users) => {
+        users.forEach(user => {
+            tBody.innerHTML += `
+                          <tr>
+            <th scope="row">${user.id}</th>
+            <td><div style="background-image: url('/avatars/${user.foto}')"></div></td>
+            <td>${user.nombre}</td>
+            <td>${user.anos_experiencia}</td>
+            <td>${user.especialidad}</td>
+            <td><input id="check" type="checkbox"/></td>
+          </tr>
+            `
+
+            const check = document.getElementById("check")
+            console.log(check.value)
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded', async() => {
+        
+        if(!localStorage.getItem('token')){
+            window.location.href ="/login"
+        }
+        
+    try {
+
+        const res = await fetch("/api/v1/users", {
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        const data = await res.json()
+        if(!data.ok){
+            window.location.href = "/login"
+        }
+
+        pintarDatos(data.users)
+
+    } catch(e) {
+        console.log(e)
+    }
+    
+    })
+    </script>

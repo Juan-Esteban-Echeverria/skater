@@ -1,0 +1,53 @@
+<h1>Skate Park</h1>
+
+    <div class="py-5">
+      <h2>Iniciar Sesión</h2>
+      <hr class="w-50" />
+
+      <form id="formulario">
+        <div class="form-group">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control w-50 m-auto" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control w-50 m-auto" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success mb-3">Ingresar</button>
+        <p>¿Aún no tienes cuenta? <a href="/register">Regístrate</a></p>
+      </form>
+    </div>
+
+
+<script>
+
+    const formulario = document.getElementById('formulario')
+
+    formulario.addEventListener('submit', async(e) => {
+        e.preventDefault()
+
+        const formData = new FormData(formulario)
+
+        try {
+
+            const res = await fetch('/api/v1/login', {
+                method: 'post',
+                body: formData
+            })
+
+            const data = await res.json()
+            if(!data.ok){
+                return alert(data.msg)
+            }
+
+            localStorage.setItem('token', data.token)
+
+            window.location.href = `/act`
+
+        }catch(error){
+            console.log(error)
+        }
+    })
+</script>
