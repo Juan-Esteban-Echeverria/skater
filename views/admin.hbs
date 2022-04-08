@@ -25,6 +25,8 @@
 
 
         <script>
+
+
     const tBody = document.getElementById("tBody")
     const pintarDatos = (users) => {
         users.forEach(user => {
@@ -40,9 +42,29 @@
             `
 
             const check = document.getElementById("check")
-            console.log(check.value)
+
+            check.addEventListener('change', () => {
+                if(check.checked) {
+
+
+                   const editar = async function() {
+                    const res = await fetch('/api/v1/user/' + user.email,{
+                    method: 'put',
+                    body: JSON.stringify({"email": user.email,
+                            "estado": true})
+                    }).then(() => window.location.href = '/')
+                   }
+                    editar()
+
+                } else {
+                    console.log(user.estado)
+                }
+            });
+   
         })
     }
+
+
 
     document.addEventListener('DOMContentLoaded', async() => {
         

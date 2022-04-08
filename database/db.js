@@ -2,7 +2,7 @@ const {Pool} = require("pg")
 const fs = require("fs")
 const path = require("path")
 
-const connectionString = process.env.DATABASE_URL
+const connectionString = process.env.DATABASE_URL || "postgresql://postgres:pendragon@localhost:5432/skatepark"
 
 const pool = process.env.DATABASE_URL ?
 new Pool({
@@ -156,6 +156,7 @@ const createUserDB = async({nombre, email, hashPassword, anos_experiencia, espec
     }
 }
 
+// MIGRACION
 const migrate = () => {
     const sqlpath = path.join(__dirname, "migration.sql")
     const data = fs.readFileSync(sqlpath, {encoding: "utf8"})

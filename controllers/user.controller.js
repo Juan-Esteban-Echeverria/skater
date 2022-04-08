@@ -1,7 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
-const { getUsersDB, createUserDB, getUserDB, updateUserDB, deleteUserDB } = require("../database/db")
+const { getUsersDB, createUserDB, getUserDB, updateUserDB, updateEstateDB, deleteUserDB } = require("../database/db")
 const path = require("path")
 
 // GETUSERS TRAER A TODOS LOS USUARIOS
@@ -87,7 +87,6 @@ const getUsers = async(req, res) => {
 
    // UPDATEUSER ACTUALIZAR LA INFO DEL USUARIO
    const updateUser = async(req, res) => {
-     console.log(req.body)
      const {email, nombre, password, anos_experiencia, especialidad} = req.body
 
      if(!email || !password){
@@ -96,6 +95,13 @@ const getUsers = async(req, res) => {
   const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password, salt)
      const respuesta = await updateUserDB(email, nombre, hashPassword, anos_experiencia, especialidad)
+     return res.json(respuesta)
+   }
+
+   // UPDATEESTATUS ALCTUALIZAR EL ESTADO DEL USUARIO
+   const updateEstate = async(req, res) => {
+     const {email, estado} = req.body
+     const respuesta = await updateEstateDB(email, estado)
      return res.json(respuesta)
    }
 
@@ -113,5 +119,6 @@ const getUsers = async(req, res) => {
      createUser,
      loginUser,
      updateUser,
+     updateEstate,
      deleteUser
  }
