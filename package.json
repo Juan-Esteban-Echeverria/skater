@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon .",
     "cypress:open": "cypress open",
-    "migrar": "node -e \"require('./database').migrate()\""
+    "migrar": "node -e \"require('./database/migration.sql').migrate()\""
   },
   "keywords": [],
   "author": "",
