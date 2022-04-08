@@ -22,4 +22,4 @@ app.use("/api/v1/", require('./routes/users.route'))
 app.use("/", require('./routes/vistas.route'))
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, console.log("SERVER ON http://localhost:5000"))
+app.listen(PORT, console.log("SERVER ON" + PORT))
