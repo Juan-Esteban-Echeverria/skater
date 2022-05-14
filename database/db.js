@@ -2,7 +2,7 @@ const {Pool} = require("pg")
 const fs = require("fs")
 const path = require("path")
 
-const connectionString = process.env.DATABASE_URL || "postgresql://postgres:pendragon@localhost:5432/skatepark"
+const connectionString = process.env.DATABASE_URL 
 
 const pool = process.env.DATABASE_URL ?
 new Pool({
